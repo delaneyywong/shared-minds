@@ -1,0 +1,129 @@
+/* Scrapbook-style layout and instructions */
+
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Patrick+Hand&display=swap");
+
+:root {
+    --paper: #f5f0e6;
+    --paper-dark: #e8e0d0;
+    --tape: rgba(255, 253, 208, 0.6);
+    --ink: #3d3529;
+    --ink-muted: #6b5d4d;
+    --accent: #8b6914;
+    --shadow: 2px 4px 12px rgba(0, 0, 0, 0.12);
+    --shadow-tape: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--paper);
+    background-image:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    font-family: "Patrick Hand", cursive;
+    color: var(--ink);
+}
+
+/* Input in top right – scrapbook sticky note feel */
+#inputBox {
+    position: fixed !important;
+    right: 20px !important;
+    top: 20px !important;
+    z-index: 100;
+    width: 280px !important;
+    padding: 12px 16px !important;
+    font-size: 22px !important;
+    font-family: "Patrick Hand", cursive !important;
+    color: var(--ink) !important;
+    background: #fffef8 !important;
+    border: 2px solid var(--paper-dark) !important;
+    border-radius: 4px !important;
+    box-shadow: var(--shadow-tape), 3px 3px 0 var(--tape) !important;
+    transform: rotate(-0.5deg) !important;
+}
+
+#inputBox::placeholder {
+    color: var(--ink-muted);
+}
+
+#inputBox:focus {
+    outline: none !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(139, 105, 20, 0.2) !important;
+}
+
+/* Combine button – tape / label style */
+.combine-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 100;
+    font-family: "Patrick Hand", cursive;
+    font-size: 20px;
+    padding: 10px 22px;
+    color: var(--ink);
+    background: var(--tape);
+    border: 1px solid rgba(139, 105, 20, 0.3);
+    border-radius: 2px;
+    box-shadow: var(--shadow-tape);
+    cursor: pointer;
+    transform: rotate(0.5deg);
+}
+
+.combine-btn:hover {
+    background: rgba(255, 253, 208, 0.9);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.combine-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Instructions box – lower right, scrapbook note */
+.instructions {
+    position: fixed;
+    right: 20px;
+    bottom: 72px;
+    z-index: 99;
+    width: 280px;
+    max-width: calc(100vw - 48px);
+    padding: 14px 18px;
+    background: #fffef8;
+    border: 2px solid var(--paper-dark);
+    border-radius: 4px;
+    box-shadow: var(--shadow), 4px 4px 0 var(--tape);
+    transform: rotate(0.8deg);
+}
+
+.instructions-title {
+    margin: 0 0 8px;
+    font-family: "Caveat", cursive;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.instructions p:last-child {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+}
+
+.instructions strong {
+    color: var(--ink);
+}
+
+/* Generated images – polaroid / photo on paper */
+.generated-image {
+    box-shadow: var(--shadow), 0 0 0 6px #fff, 0 0 0 8px var(--paper-dark);
+    border-radius: 2px;
+}
