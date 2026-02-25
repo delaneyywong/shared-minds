@@ -1,0 +1,231 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Verdana", "Tahoma", sans-serif;
+  background: linear-gradient(
+    135deg,
+    #ff0000 0%,
+    #ff7f00 14%,
+    #ffff00 28%,
+    #00ff00 42%,
+    #00ffff 57%,
+    #0000ff 71%,
+    #8b00ff 85%,
+    #ff0000 100%
+  );
+  background-attachment: fixed;
+  color: #111;
+}
+
+.app-shell {
+  width: 760px;
+  margin: 0;
+  border: 1px solid #4b5878;
+  background-color: #f5f7ff;
+  box-shadow:
+    0 0 0 1px #ffffff inset,
+    0 0 18px rgba(0, 0, 0, 0.35);
+}
+
+.title-bar {
+  background: linear-gradient(to bottom, #2a59b8 0%, #174086 50%, #0e2b5a 100%);
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #0a1a36;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.title-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #ffffff 0%, #ffc800 45%, #f09000 100%);
+  border: 1px solid #c07000;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+.window-title {
+  font-weight: bold;
+  letter-spacing: 0.03em;
+}
+
+.status-text {
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+.toolbar {
+  background: linear-gradient(to bottom, #edf1ff 0%, #d7ddf5 100%);
+  border-bottom: 1px solid #a7b1d4;
+  padding: 4px 8px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #22335a;
+}
+
+.toolbar-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 10px;
+}
+
+.toolbar-separator {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0, #9fa9cc 20%, transparent 100%);
+}
+
+.content {
+  padding: 10px;
+  background: #e7ebff;
+  border-top: 1px solid #ffffff;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #222;
+}
+
+.input-label {
+  min-width: 70px;
+  text-align: right;
+  padding-right: 4px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+#name,
+#message {
+  border: 1px solid #7a86a4;
+  background: linear-gradient(to bottom, #ffffff 0%, #f3f5ff 100%);
+  padding: 3px 5px;
+  font-size: 11px;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 0 0 1px rgba(255, 255, 255, 0.4);
+  color: #222;
+  outline: none;
+}
+
+#name {
+  width: 160px;
+}
+
+#message {
+  flex: 1;
+}
+
+#message::placeholder,
+#name::placeholder {
+  color: #888ea8;
+}
+
+button {
+  font-size: 11px;
+  padding: 3px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
+  border: 1px solid #414a63;
+  background: linear-gradient(to bottom, #ffffff 0%, #e5e7f5 45%, #c3c7df 100%);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 0 0 1px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  color: #1a2344;
+  font-weight: bold;
+}
+
+button:hover {
+  background: linear-gradient(to bottom, #ffffff 0%, #f3f4ff 45%, #d0d4ec 100%);
+}
+
+button:active {
+  background: linear-gradient(to top, #d0d4ec 0%, #f3f4ff 60%, #ffffff 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.messages-frame {
+  margin-top: 6px;
+  border: 1px solid #8088a8;
+  background: #ffffff;
+  box-shadow:
+    inset 0 0 0 1px #f3f4ff,
+    0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+#messages {
+  height: 360px;
+  overflow-y: auto;
+  padding: 6px 8px;
+  font-size: 12px;
+  background:
+    linear-gradient(to bottom, #ffffff 0%, #f7f7ff 100%);
+}
+
+#messages div {
+  padding: 2px 4px;
+  border-bottom: 1px dotted #d0d4ec;
+  white-space: pre-wrap;
+}
+
+#messages div:nth-child(odd) {
+  background-color: #f4f6ff;
+}
+
+#messages div span.sender {
+  font-weight: bold;
+  color: #1b3180;
+}
+
+.footer-bar {
+  padding: 4px 8px 6px;
+  font-size: 10px;
+  color: #444c6b;
+  background: linear-gradient(to top, #d0d4ec 0%, #e6ebff 60%, #f7f8ff 100%);
+  border-top: 1px solid #a1aacb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: #1b3180;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Firebase Chat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+    <div class="title-bar">
+      <div class="title-bar-left">
+        <div class="title-icon"></div>
+        <div class="window-title">SharedMinds Messenger</div>
+      </div>
+      <div class="status-text">Status: Online</div>
+    </div>
+
+    <div class="toolbar">
+      <span class="toolbar-label">Contacts</span>
+      <span>Shared Room &raquo; Global Chat</span>
+      <div class="toolbar-separator"></div>
+    </div>
+
+    <div class="content">
+      <div class="input-row">
+        <div class="input-label">Nickname:</div>
+        <input id="name" type="text" placeholder="e.g. chatMaster42" />
+      </div>
+      <div class="input-row">
+        <div class="input-label">Message:</div>
+        <input id="message" type="text" placeholder="Type your message here..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+
+      <div class="messages-frame">
+        <div id="messages"></div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div>&copy; 2003–2005 SharedMinds Chat</div>
+      <div class="footer-links">
+        <a href="javascript:void(0)">Help</a>
+        <a href="javascript:void(0)">Options</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+
+</body>
+</html>
