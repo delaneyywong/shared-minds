@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favorite Things Board</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__left">
+        <span class="topbar__logo-dot"></span>
+        <h1 class="topbar__title">Favorite Things Board</h1>
+      </div>
+      <div class="topbar__right">
+        <div id="user-info" class="user-info user-info--hidden">
+          <span id="user-name" class="user-info__name"></span>
+        </div>
+        <button id="auth-btn" class="btn btn--primary">Sign in with Google</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <p class="hero__text">
+          Add your favorites to the shared sticky note wall.
+          <span class="hero__highlight">Sign in</span> to contribute.
+        </p>
+      </section>
+
+      <section class="board" id="board">
+        <!-- Sticky notes for each category are created in main.js -->
+      </section>
+    </main>
+
+    <div id="auth-banner" class="auth-banner auth-banner--hidden">
+      <span>You must be signed in to add favorites.</span>
+    </div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
