@@ -168,11 +168,11 @@ function renderFavorites(categoryId, docs) {
 
     const nameSpan = document.createElement("span");
     nameSpan.className = "favorite__name";
-    nameSpan.textContent = data.userName || "Anonymous";
+    nameSpan.textContent = `${data.userName || "Anonymous"}:`;
 
     const valueSpan = document.createElement("span");
     valueSpan.className = "favorite__value";
-    valueSpan.textContent = ` — ${data.value}`;
+    valueSpan.textContent = data.value;
 
     item.appendChild(nameSpan);
     item.appendChild(valueSpan);
