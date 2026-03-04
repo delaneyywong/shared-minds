@@ -212,10 +212,8 @@ ul {
 }
 
 .sticky__list {
-  max-height: 160px;
-  overflow-y: auto;
   margin-bottom: 0.7rem;
-  padding-right: 0.25rem;
+  min-height: 0.5rem;
 }
 
 .sticky__list::-webkit-scrollbar {
@@ -228,6 +226,10 @@ ul {
 }
 
 .favorite {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
   padding: 0.25rem 0.35rem;
   border-radius: 0.35rem;
   background: rgba(254, 252, 232, 0.85);
