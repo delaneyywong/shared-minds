@@ -1,0 +1,183 @@
+<html>
+
+<head>
+    <title>Shoreline sandcastles</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        .welcome-modal {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+
+        .welcome-modal--dismissed {
+            display: none;
+        }
+
+        .welcome-modal__backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(92, 72, 48, 0.35);
+            backdrop-filter: blur(4px);
+        }
+
+        .welcome-modal__dialog {
+            position: relative;
+            width: 100%;
+            max-width: min(300px, calc(100vw - 32px));
+            margin: 0 auto;
+            padding: 20px 22px 18px;
+            background: #e4cfa3;
+            border-radius: 12px;
+            border: 2px solid #5a8f5c;
+            box-shadow:
+                0 2px 0 rgba(255, 252, 245, 0.5) inset,
+                0 10px 28px rgba(60, 45, 28, 0.2);
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            color: #4a3728;
+            flex-shrink: 0;
+        }
+
+        .welcome-modal__dialog::before {
+            content: "";
+            display: block;
+            height: 3px;
+            margin: -4px -12px 14px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, transparent, #5a8f5c, transparent);
+        }
+
+        .welcome-modal__dialog h2 {
+            margin: 0 0 12px;
+            font-size: 1.12rem;
+            font-weight: 650;
+            letter-spacing: 0.02em;
+            color: #3d2e22;
+        }
+
+        .welcome-modal__dialog p {
+            margin: 0 0 16px;
+            line-height: 1.5;
+            font-size: 0.84rem;
+            color: #4a3728;
+        }
+
+        .welcome-modal__dialog p strong {
+            color: #2d5a2f;
+            font-weight: 650;
+        }
+
+        #enter-experience-btn {
+            display: block;
+            width: 100%;
+            padding: 9px 16px;
+            font-size: 0.86rem;
+            font-weight: 650;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #f8f5ed;
+            background: linear-gradient(180deg, #5a9a5c 0%, #3d7a40 100%);
+            border: 1px solid #2d5a30;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 0 rgba(255, 255, 255, 0.2) inset;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        #enter-experience-btn:hover {
+            background: linear-gradient(180deg, #4f8d51 0%, #356838 100%);
+        }
+
+        #enter-experience-btn:focus {
+            outline: 2px solid #2d5a30;
+            outline-offset: 2px;
+        }
+
+        .castle-counter {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 100;
+            padding: 8px 14px;
+            background: #e4cfa3;
+            border: 2px solid #5a8f5c;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(60, 45, 28, 0.15);
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            font-size: 0.88rem;
+            color: #4a3728;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .castle-counter__label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #5c4a38;
+            margin-bottom: 2px;
+        }
+
+        .castle-counter__value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2d5a2f;
+            line-height: 1.1;
+        }
+    </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+
+
+<body>
+    <div id="welcome-modal" class="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+        <div class="welcome-modal__backdrop" aria-hidden="true"></div>
+        <div class="welcome-modal__dialog">
+            <h2 id="welcome-title">Welcome to the shore</h2>
+            <p>
+                Get <strong>both hands</strong> in the frame and hold still for three seconds — a little castle rises on the sand <strong>right in front of you</strong>.
+                Drop your hands to reset, then you can build another. To look around, <strong>click and drag</strong>.
+            </p>
+            <button type="button" id="enter-experience-btn">Step onto the sand</button>
+        </div>
+    </div>
+    <div id="castle-counter" class="castle-counter" aria-live="polite" aria-atomic="true">
+        <span class="castle-counter__label">Sand castles built</span>
+        <span id="castle-count-value" class="castle-counter__value">0</span>
+    </div>
+    <div id='container'></div>
+    <script>
+        document.getElementById("enter-experience-btn").addEventListener("click", function () {
+            document.getElementById("welcome-modal").classList.add("welcome-modal--dismissed");
+        });
+    </script>
+    <script src="hand.js"></script>
+
+</body>
+
+</html>
