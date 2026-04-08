@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generate Your House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0c0f;
+      --bg-elevated: #16141a;
+      --text: #e8e4dc;
+      --text-muted: #8a8478;
+      --accent: #c4a574;
+      --accent-dim: #6b5c45;
+      --border: #2a2630;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+      font-size: 1.125rem;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(196, 165, 116, 0.08), transparent),
+        var(--bg);
+      line-height: 1.5;
+    }
+
+    main {
+      max-width: 28rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin: 0 0 0.25rem;
+      color: var(--text);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem 1rem 1.25rem;
+      margin: 0 0 1.25rem;
+      background: var(--bg-elevated);
+    }
+
+    legend {
+      padding: 0 0.5rem;
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .trait {
+      margin-bottom: 1.1rem;
+    }
+
+    .trait:last-child {
+      margin-bottom: 0;
+    }
+
+    .trait-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .trait-labels span:first-child {
+      text-align: left;
+    }
+
+    .trait-labels span:last-child {
+      text-align: right;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--border);
+      border-radius: 3px;
+      accent-color: var(--accent);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(196, 165, 116, 0.35);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+    }
+
+    .value-hint {
+      font-size: 0.8rem;
+      color: var(--accent-dim);
+      margin-top: 0.2rem;
+    }
+
+    label[for="vibe"] {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    #vibe {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      font-family: inherit;
+      font-size: 1.05rem;
+      color: var(--text);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    #vibe:focus {
+      outline: none;
+      border-color: var(--accent-dim);
+    }
+
+    .vibe-wrap {
+      margin-bottom: 1.5rem;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--bg);
+      background: linear-gradient(180deg, #d4b896, var(--accent));
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    button[type="submit"]:hover:not(:disabled) {
+      opacity: 0.92;
+    }
+
+    button[type="submit"]:active:not(:disabled) {
+      transform: scale(0.99);
+    }
+
+    button[type="submit"]:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .status {
+      text-align: center;
+      min-height: 1.5rem;
+      margin-top: 1.25rem;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .status.loading {
+      color: var(--accent);
+    }
+
+    .result {
+      margin-top: 1.75rem;
+      text-align: center;
+    }
+
+    .result img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .error {
+      color: #c97a6a;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Generate Your House</h1>
+    <p class="subtitle">Tune the mood, name the vibe, reveal the dwelling.</p>
+
+    <form id="house-form" novalidate>
+      <fieldset>
+        <legend>Personality</legend>
+
+        <div class="trait" data-trait="social">
+          <div class="trait-labels">
+            <span>Introverted</span>
+            <span>Extroverted</span>
+          </div>
+          <input type="range" id="social" name="social" min="1" max="5" value="3" />
+          <div class="value-hint" aria-live="polite"></div>
+        </div>
+
+        <div class="trait" data-trait="energy">
+          <div class="trait-labels">
+            <span>Calm</span>
+            <span>Chaotic</span>
+          </div>
+          <input type="range" id="energy" name="energy" min="1" max="5" value="3" />
+          <div class="value-hint" aria-live="polite"></div>
+        </div>
+
+        <div class="trait" data-trait="stuff">
+          <div class="trait-labels">
+            <span>Minimal</span>
+            <span>Cluttered</span>
+          </div>
+          <input type="range" id="stuff" name="stuff" min="1" max="5" value="3" />
+          <div class="value-hint" aria-live="polite"></div>
+        </div>
+
+        <div class="trait" data-trait="temperature">
+          <div class="trait-labels">
+            <span>Cold</span>
+            <span>Warm</span>
+          </div>
+          <input type="range" id="temperature" name="temperature" min="1" max="5" value="3" />
+          <div class="value-hint" aria-live="polite"></div>
+        </div>
+      </fieldset>
+
+      <div class="vibe-wrap">
+        <label for="vibe">Single-word vibe</label>
+        <input type="text" id="vibe" name="vibe" placeholder="e.g. nostalgic, futuristic" autocomplete="off" />
+      </div>
+
+      <button type="submit" id="generate-btn">Generate House</button>
+    </form>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <div class="result" id="result"></div>
+  </main>
+
+  <script>
+    const API_URL = "https://pharmacognostic-domitila-unsequent.ngrok-free.dev/generate";
+
+    const SOCIAL_PHRASES = {
+      1: "a quiet, enclosed space with intimate scale",
+      2: "a slightly private interior with cozy corners",
+      3: "a balanced layout between openness and retreat",
+      4: "an airy, social plan with generous gathering areas",
+      5: "an open, expansive space that welcomes many",
+    };
+
+    const ENERGY_PHRASES = {
+      1: "serene order and still atmosphere",
+      2: "calm with subtle movement and soft rhythm",
+      3: "moderate energy—neither sleepy nor frantic",
+      4: "lively, dynamic, with visual surprises",
+      5: "chaotic energy—busy, layered, unpredictable",
+    };
+
+    const STUFF_PHRASES = {
+      1: "sparse and essential—almost empty surfaces",
+      2: "minimal with a few deliberate accents",
+      3: "lived-in balance between tidy and full",
+      4: "rich with objects, art, and texture",
+      5: "maximal and cluttered—layers of life on every surface",
+    };
+
+    const TEMP_PHRASES = {
+      1: "cold, stark materials and cool light",
+      2: "cool and restrained in palette and mood",
+      3: "neutral temperature—neither icy nor cozy",
+      4: "warm tones and inviting surfaces",
+      5: "warm, cozy, and sunlit—like a hearth in winter",
+    };
+
+    /**
+     * Maps slider values (1–5) to descriptive language and returns one prompt string.
+     * @param {{ social: number, energy: number, stuff: number, temperature: number }} traits
+     * @param {string} vibeWord - single word describing atmosphere
+     * @returns {string}
+     */
+    function buildHousePrompt(traits, vibeWord) {
+      const s = SOCIAL_PHRASES[traits.social];
+      const e = ENERGY_PHRASES[traits.energy];
+      const m = STUFF_PHRASES[traits.stuff];
+      const t = TEMP_PHRASES[traits.temperature];
+      const vibe = (vibeWord || "").trim();
+      const lines = [
+        "Architectural visualization of a house interior:",
+      ];
+      if (vibe) {
+        lines.push(`Overall it should feel ${vibe}.`);
+      }
+      return [
+        ...lines,
+        `Spatial character: ${s}.`,
+        `Atmosphere and energy: ${e}.`,
+        `Amount of stuff and detail: ${m}.`,
+        `Color and warmth: ${t}.`,
+        "Photorealistic, cinematic lighting, high detail.",
+      ].join(" ");
+    }
+
+    const traitKeys = ["social", "energy", "stuff", "temperature"];
+    const traitMap = {
+      social: SOCIAL_PHRASES,
+      energy: ENERGY_PHRASES,
+      stuff: STUFF_PHRASES,
+      temperature: TEMP_PHRASES,
+    };
+
+    function updateTraitHints() {
+      traitKeys.forEach((key) => {
+        const input = document.getElementById(key);
+        const wrap = input.closest(".trait");
+        const hint = wrap.querySelector(".value-hint");
+        const v = Number(input.value, 10);
+        hint.textContent = traitMap[key][v];
+      });
+    }
+
+    traitKeys.forEach((key) => {
+      document.getElementById(key).addEventListener("input", updateTraitHints);
+    });
+    updateTraitHints();
+
+    const form = document.getElementById("house-form");
+    const statusEl = document.getElementById("status");
+    const resultEl = document.getElementById("result");
+    const generateBtn = document.getElementById("generate-btn");
+
+    function setLoading(loading) {
+      generateBtn.disabled = loading;
+      if (loading) {
+        statusEl.textContent = "Summoning the house…";
+        statusEl.classList.add("loading");
+      } else {
+        statusEl.classList.remove("loading");
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      resultEl.innerHTML = "";
+      statusEl.textContent = "";
+      statusEl.classList.remove("error");
+
+      const traits = {
+        social: Number(document.getElementById("social").value, 10),
+        energy: Number(document.getElementById("energy").value, 10),
+        stuff: Number(document.getElementById("stuff").value, 10),
+        temperature: Number(document.getElementById("temperature").value, 10),
+      };
+      const vibeRaw = document.getElementById("vibe").value.trim();
+      const prompt = buildHousePrompt(traits, vibeRaw);
+
+      setLoading(true);
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+          body: JSON.stringify({ prompt }),
+        });
+
+        const contentType = res.headers.get("content-type") || "";
+
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(errText || `Request failed (${res.status})`);
+        }
+
+        if (contentType.includes("application/json")) {
+          const data = await res.json();
+          const url =
+            data.imageUrl ||
+            data.image_url ||
+            data.url ||
+            data.image ||
+            (typeof data === "string" ? data : null);
+          if (!url) {
+            throw new Error("Response JSON did not include an image URL.");
+          }
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "Generated house";
+          resultEl.appendChild(img);
+        } else {
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "Generated house";
+          img.onload = () => URL.revokeObjectURL(url);
+          resultEl.appendChild(img);
+        }
+
+        statusEl.textContent = "Here is your house.";
+      } catch (err) {
+        statusEl.textContent = err.message || "Something went wrong.";
+        statusEl.classList.add("error");
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>
