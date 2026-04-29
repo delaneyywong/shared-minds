@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commonplace Kitchen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&family=Caveat:wght@400;700&family=Reenie+Beanie&family=La+Belle+Aurore&family=Walter+Turncoat&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <h1>Commonplace Kitchen</h1>
+      <button id="open-form-btn" class="primary-btn">Submit a Recipe</button>
+    </header>
+
+    <main>
+      <section class="filter-section">
+        <h2>Browse by Process</h2>
+        <div id="category-filters" class="category-filters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="Steeping">Steeping</button>
+          <button class="filter-btn" data-category="Simmering">Simmering</button>
+          <button class="filter-btn" data-category="Boiling Over">Boiling Over</button>
+          <button class="filter-btn" data-category="Reducing">Reducing</button>
+          <button class="filter-btn" data-category="Preserving">Preserving</button>
+        </div>
+      </section>
+
+      <section class="cards-section">
+        <div id="recipes-grid" class="recipes-grid"></div>
+        <p id="empty-state" class="empty-state">
+          No memories yet. Be the first to archive one.
+        </p>
+      </section>
+    </main>
+
+    <section id="form-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-content">
+        <button id="close-form-btn" class="close-btn" aria-label="Close form">
+          x
+        </button>
+        <h2>Submit a Recipe</h2>
+
+        <form id="memory-form">
+          <div>
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" required maxlength="120" />
+          </div>
+
+          <div>
+            <label for="memory">Memory</label>
+            <div class="prompt-box">
+              <p>Where were you?</p>
+              <p>Who were you with?</p>
+              <p>What do you remember most vividly?</p>
+            </div>
+            <textarea id="memory" name="memory" rows="7" required></textarea>
+          </div>
+
+          <div>
+            <label for="ingredients">Ingredients</label>
+            <textarea id="ingredients" name="ingredients" rows="6" required></textarea>
+            <label for="directions">Instructions</label>
+            <textarea id="directions" name="directions" rows="6" required></textarea>
+          </div>
+
+          <div>
+            <p class="radio-title">What color is this memory?</p>
+            <input id="color" name="color" type="hidden" value="#FDE2E4" required />
+            <div class="option-row" data-target-input="color">
+              <button type="button" class="option-btn color-btn active" data-value="#FDE2E4" style="--swatch:#FDE2E4;" aria-label="Select color 1"></button>
+              <button type="button" class="option-btn color-btn" data-value="#F9E2AE" style="--swatch:#F9E2AE;" aria-label="Select color 2"></button>
+              <button type="button" class="option-btn color-btn" data-value="#E2F0CB" style="--swatch:#E2F0CB;" aria-label="Select color 3"></button>
+              <button type="button" class="option-btn color-btn" data-value="#CDE7F0" style="--swatch:#CDE7F0;" aria-label="Select color 4"></button>
+              <button type="button" class="option-btn color-btn" data-value="#D9D2F0" style="--swatch:#D9D2F0;" aria-label="Select color 5"></button>
+              <button type="button" class="option-btn color-btn" data-value="#F1D1E8" style="--swatch:#F1D1E8;" aria-label="Select color 6"></button>
+              <button type="button" class="option-btn color-btn" data-value="#E8E9ED" style="--swatch:#E8E9ED;" aria-label="Select color 7"></button>
+              <button type="button" class="option-btn color-btn" data-value="#FFDCC8" style="--swatch:#FFDCC8;" aria-label="Select color 8"></button>
+            </div>
+
+            <p class="radio-title">Handwriting style</p>
+            <input id="font" name="font" type="hidden" value="Caveat" required />
+            <div class="option-row" data-target-input="font">
+              <button type="button" class="option-btn style-btn active" data-value="Caveat">1</button>
+              <button type="button" class="option-btn style-btn" data-value="Reenie Beanie">2</button>
+              <button type="button" class="option-btn style-btn" data-value="La Belle Aurore">3</button>
+              <button type="button" class="option-btn style-btn" data-value="Walter Turncoat">4</button>
+            </div>
+          </div>
+
+          <div>
+            <label for="images">Upload images</label>
+            <input id="images" name="images" type="file" accept="image/*" multiple />
+            <p class="help-text">Optional. PNG, JPG, WEBP supported by browser.</p>
+            <ul id="selected-images" class="selected-images"></ul>
+          </div>
+
+          <div>
+            <p class="radio-title">Category:</p>
+            <div class="radio-group">
+              <label><input type="radio" name="category" value="Steeping" required /> Steeping</label>
+              <label><input type="radio" name="category" value="Simmering" /> Simmering</label>
+              <label><input type="radio" name="category" value="Boiling Over" /> Boiling Over</label>
+              <label><input type="radio" name="category" value="Reducing" /> Reducing</label>
+              <label><input type="radio" name="category" value="Preserving" /> Preserving</label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="submit-btn" class="primary-btn">
+              Submit Recipe
+            </button>
+          </div>
+        </form>
+        <p id="form-status" class="form-status" role="status"></p>
+      </div>
+    </section>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
